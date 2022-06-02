@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 var corsOptions = {
-    origin: 'http://localhost:8081'
+    origin: 'https://webprogevent.herokuapp.com/api/auth/signin',
 };
 app.use(cors(corsOptions));
 app.use(express.json());
