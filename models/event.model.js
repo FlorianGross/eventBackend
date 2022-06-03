@@ -17,11 +17,27 @@ const Event = mongoose.model(
             required: true
         },
         start: {
-            type: String,
+            type: Date,
             required: true
         },
         ende: {
+            type: Date,
+            required: true
+        },
+        icon: {
             type: String,
+            required: false
+        },
+        maxParticipants: {
+            type: Number,
+            required: true
+        },
+        organizer: {
+            type: String,
+            required: true
+        },
+        cost: {
+            type: Number,
             required: true
         },
     });

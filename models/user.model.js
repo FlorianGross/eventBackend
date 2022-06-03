@@ -11,7 +11,17 @@ const User = mongoose.model(
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Role"
             }
-        ]
+        ],
+        events: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Event"
+            }
+        ],
+        createdAt: {
+            type: Date,
+            default: Date.now
+        },
     })
 );
 module.exports = User;
