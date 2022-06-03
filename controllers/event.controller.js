@@ -2,28 +2,28 @@ const db = require("../models");
 const event = db.event;
 
 exports.userBoard = (req, res) => {
-    event.find({ uid: req.body.user }).lean().exec(function (err, event) {
+    event.find().lean().exec(function (err, event) {
         return res.json(event);
     });
 };
 
 exports.create = (req, res) => {
-    const newEvent = new event({
-        uid: req.body.uid,
+    event.create({
+        creater: req.body.creater,
+        name: req.body.name,
         description: req.body.description,
+        image: req.body.image,
         location: req.body.location,
         start: req.body.start,
-        ende: req.body.ende,
+        end: req.body.end,
         icon: req.body.icon,
         maxParticipants: req.body.maxParticipants,
-        organizer: req.body.organizer,
+        group: req.body.group,
         cost: req.body.cost,
-    });
-    newEvent.save((err, event) => {
-        if (err) {
-            return res.status(500).send(err);
-        }
-        return res.status(200).send(event);
+        participants: req.body.participants
+    }, (err, event) => {
+        if (err) return res.status(400).send(err);
+        return res.json(event);
     });
 };
 

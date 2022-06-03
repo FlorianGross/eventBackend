@@ -2,25 +2,33 @@ const mongoose = require("mongoose");
 const Event = mongoose.model(
     "Event",
     {
-        uid: [
+        creater: [
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "User"
             }
         ],
+        name: {
+            type: String,
+            required: true
+        },
         description: {
+            type: String,
+            required: true
+        },
+        image: {
             type: String,
             required: true
         },
         location: {
             type: String,
-            required: true
+            required: false
         },
         start: {
             type: Date,
             required: true
         },
-        ende: {
+        end: {
             type: Date,
             required: true
         },
@@ -32,14 +40,20 @@ const Event = mongoose.model(
             type: Number,
             required: true
         },
-        organizer: {
+        group: {
             type: String,
-            required: true
+            required: false
         },
         cost: {
             type: Number,
             required: true
         },
+        participants: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User"
+            }
+        ]
     });
 
 module.exports = Event;
