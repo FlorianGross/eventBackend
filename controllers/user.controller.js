@@ -22,7 +22,7 @@ exports.updateUser = (req, res) => {
     current.update({
         roles: role.findOne({
             where: {
-                name: req.body.roles.role,
+                name: req.body.roles,
             }
         })
     });
