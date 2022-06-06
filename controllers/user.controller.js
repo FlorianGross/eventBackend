@@ -19,22 +19,27 @@ exports.updateUser = (req, res) => {
     Role.find({ name: cRole }).then
         (role => {
             console.log(role);
-            User.findOneAndUpdate({ username: cUser }, {
-                $push: {
-                    roles: role,
+            User.findOne({ username: cUser }).then(user => {
+                testRoles = user.roles;
+                if (testRoles[0] == role || testRoles[1] == role) {
+                    throw new Error("Already Admin / User");
                 }
-            }, { new: true }, (err, user) => {
-                console.log(user);
-                if (err) {
-                    res.send(err);
-                }
-                res.json(user);
-            });
+                User.findOneAndUpdate({ username: cUser }, {
+                    $push: {
+                        roles: role,
+                    }
+                }, { new: true }, (err, user) => {
+                    console.log(user);
+                    if (err) {
+                        res.send(err);
+                    }
+                    res.json(user);
+                });
+            }
+            ).catch(err => {
+                res.send(err);
+            }
+            );
         }
-        ).catch(err => {
-            res.send(err);
-        }
-        );
-}
 
 
