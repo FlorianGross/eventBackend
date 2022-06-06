@@ -19,13 +19,19 @@ exports.updateUser = (req, res) => {
             _id: req.body._id
         }
     });
-    current.update({
-        roles: role.findOne({
-            where: {
-                name: req.body.roles,
+    current.then(user => {
+        user.update({
+            role: Role.findOne({
+                where: {
+                    name: req.body.role
+                }
+            })
+        }, (err, user) => {
+            if (err) {
+                res.send(err);
             }
-        })
+            res.json(user);
+        });
     });
-    res.json(current);
 }
 
