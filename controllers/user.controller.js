@@ -21,7 +21,7 @@ exports.updateUser = (req, res) => {
             console.log(role);
             User.findOne({ username: cUser }).then(user => {
                 testRoles = user.roles;
-                if (testRoles[0] == role || testRoles[1] == role) {
+                if (testRoles[0]._id == role._id || testRoles[1]._id == role._id) {
                     throw new Error("Already Admin / User");
                 }
             });
