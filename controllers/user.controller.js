@@ -17,7 +17,7 @@ exports.updateUser = (req, res) => {
     Role.find({ name: 'Admin' }).then
         (role => {
             console.log(role);
-            User.findOneAndUpdate({ username: req.body.username }, {
+            User.findOneAndUpdate({ username: 'fg-202341' }, {
                 $push: {
                     roles: role._id,
                 }
