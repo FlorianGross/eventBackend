@@ -14,8 +14,8 @@ exports.getAllUsers = (req, res) => {
 
 exports.updateUser = (req, res) => {
     console.log(req.body);
-    let cRole = req.body.role;
-    let cUser = req.body.username;
+    let cRole = req.body.roles;
+    let cUser = req.body.id;
     Role.find({ name: cRole }).then
         (role => {
             console.log(role);
