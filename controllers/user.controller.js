@@ -23,6 +23,7 @@ exports.updateUser = (req, res) => {
             res.send(err);
         }
         res.json(user);
-    })
+    });
+    console.log(User.findById(req.body.id));
 }
 
