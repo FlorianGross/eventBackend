@@ -14,7 +14,7 @@ exports.getAllUsers = (req, res) => {
 
 exports.updateUser = (req, res) => {
     console.log(req.body);
-    var current = User.findOneAndUpdate({ username: req.body.username }, {
+    User.findOneAndUpdate({ username: req.body.username }, {
         $push: {
             roles: req.body.role
         }
@@ -22,8 +22,8 @@ exports.updateUser = (req, res) => {
         if (err) {
             res.send(err);
         }
+        console.log(user.roles);
         res.json(user);
     });
-    console.log(current);
 }
 
