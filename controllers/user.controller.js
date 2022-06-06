@@ -26,14 +26,6 @@ exports.updateUser = (req, res) => {
             }
         })
     });
-    current.save(function (err) {
-        if (err) {
-            console.log(err);
-        }
-        console.log("updated");
-    });
-    res.json({
-        message: "User updated successfully"
-    });
+    res.json(current);
 }
 
