@@ -11,4 +11,5 @@ module.exports = function (app) {
     });
 
     app.get("/api/users", [authJwt.verifyToken], controller.getAllUsers);
+    app.put("/api/updateUser", [authJwt.verifyToken], controller.updateUser);
 };
