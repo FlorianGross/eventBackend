@@ -22,6 +22,7 @@ exports.updateUser = (req, res) => {
                     roles: role._id,
                 }
             }, { new: true }, (err, user) => {
+                console.log(user);
                 if (err) {
                     res.send(err);
                 }
