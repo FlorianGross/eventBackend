@@ -14,7 +14,7 @@ exports.getAllUsers = (req, res) => {
 
 exports.updateUser = (req, res) => {
     console.log(req.body);
-    var current = user.findOne({
+    var current = User.findOne({
         where: {
             _id: req.body._id
         }
