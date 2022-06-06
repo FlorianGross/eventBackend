@@ -14,24 +14,15 @@ exports.getAllUsers = (req, res) => {
 
 exports.updateUser = (req, res) => {
     console.log(req.body);
-    var current = User.findOne({
-        where: {
-            _id: req.body._id
+    User.findByIdAndUpdate(req.body.id, {
+        $push: {
+            roles: req.body.role
         }
-    });
-    current.then(user => {
-        user.update({
-            role: Role.findOne({
-                where: {
-                    name: req.body.role
-                }
-            })
-        }, (err, user) => {
-            if (err) {
-                res.send(err);
-            }
-            res.json(user);
-        });
-    });
+    }, { new: true }, (err, user) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(user);
+    })
 }
 
