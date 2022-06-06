@@ -14,17 +14,26 @@ exports.getAllUsers = (req, res) => {
 
 exports.updateUser = (req, res) => {
     console.log(req.body);
-    User.findOneAndUpdate({ _id: req.body.id }, {
-        $set: {
-            roles: role.find(r => r.name === req.body.role)
+    var current = user.findOne({
+        where: {
+            _id: req.body._id
         }
-    }, { new: true }, (err, user) => {
+    });
+    current.update({
+        roles: role.findOne({
+            where: {
+                name: req.body.role[1],
+            }
+        })
+    });
+    current.save(function (err) {
         if (err) {
             console.log(err);
-            res.send(err);
         }
-        res.json(user);
-        console.log(user);
+        console.log("updated");
+    });
+    res.json({
+        message: "User updated successfully"
     });
 }
 
