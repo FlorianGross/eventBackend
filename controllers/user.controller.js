@@ -24,22 +24,24 @@ exports.updateUser = (req, res) => {
                 if (testRoles[0] == role || testRoles[1] == role) {
                     throw new Error("Already Admin / User");
                 }
-                User.findOneAndUpdate({ username: cUser }, {
-                    $push: {
-                        roles: role,
-                    }
-                }, { new: true }, (err, user) => {
-                    console.log(user);
-                    if (err) {
-                        res.send(err);
-                    }
-                    res.json(user);
-                });
-            }
-            ).catch(err => {
-                res.send(err);
-            }
-            );
+            });
+            User.findOneAndUpdate({ username: cUser }, {
+                $push: {
+                    roles: role,
+                }
+            }, { new: true }, (err, user) => {
+                console.log(user);
+                if (err) {
+                    res.send(err);
+                }
+                res.json(user);
+            });
         }
+        ).catch(err => {
+            res.send(err);
+        }
+        );
+}
+
 
 
