@@ -14,10 +14,12 @@ exports.getAllUsers = (req, res) => {
 
 exports.updateUser = (req, res) => {
     console.log(req.body);
-    Role.find({ name: 'Admin' }).then
+    let cRole = req.body.role;
+    let cUser = req.body.username;
+    Role.find({ name: cRole }).then
         (role => {
             console.log(role);
-            User.findOneAndUpdate({ username: 'fg-202341' }, {
+            User.findOneAndUpdate({ username: cUser }, {
                 $push: {
                     roles: role,
                 }
