@@ -14,7 +14,7 @@ exports.getAllUsers = (req, res) => {
 
 exports.updateUser = (req, res) => {
     console.log(req.body);
-    Role.find({ name: req.body.role }).then
+    Role.find({ name: 'Admin' }).then
         (role => {
             console.log(role);
             User.findOneAndUpdate({ username: req.body.username }, {
