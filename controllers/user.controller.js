@@ -14,7 +14,7 @@ exports.getAllUsers = (req, res) => {
 
 exports.updateUser = (req, res) => {
     console.log(req.body);
-    User.findByIdAndUpdate(req.body.id, {
+    var current = User.findOneAndUpdate({ username: req.body.username }, {
         $push: {
             roles: req.body.role
         }
@@ -24,6 +24,6 @@ exports.updateUser = (req, res) => {
         }
         res.json(user);
     });
-    console.log(User.findById(req.body.id));
+    console.log(current);
 }
 
