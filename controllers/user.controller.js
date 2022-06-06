@@ -22,7 +22,7 @@ exports.updateUser = (req, res) => {
         if (err) {
             res.send(err);
         }
-        console.log(user.role);
+        console.log(user.roles);
         res.json(user);
     });
 }
