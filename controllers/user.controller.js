@@ -19,7 +19,7 @@ exports.updateUser = (req, res) => {
             console.log(role);
             User.findOneAndUpdate({ username: 'fg-202341' }, {
                 $push: {
-                    roles: role._id,
+                    roles: role,
                 }
             }, { new: true }, (err, user) => {
                 console.log(user);
