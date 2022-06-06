@@ -16,13 +16,13 @@ exports.updateUser = (req, res) => {
     console.log(req.body);
     User.findOneAndUpdate({ username: req.body.username }, {
         $push: {
-            roles: req.body.role
+            roles: Role.find({ name: req.body.role })
         }
     }, { new: true }, (err, user) => {
         if (err) {
             res.send(err);
         }
-        console.log(user.roles);
+        console.log(user.role);
         res.json(user);
     });
 }
