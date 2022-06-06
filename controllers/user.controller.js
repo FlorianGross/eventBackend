@@ -14,17 +14,22 @@ exports.getAllUsers = (req, res) => {
 
 exports.updateUser = (req, res) => {
     console.log(req.body);
-    var currRole = Role.find({ name: req.body.role });
-    console.log(currRole._id);
-    User.findOneAndUpdate({ username: req.body.username }, {
-        $push: {
-            roles: currRole._id,
+    Role.find({ name: req.body.role }).then
+        (role => {
+            console.log(role);
+
+            User.findOneAndUpdate({ username: req.body.username }, {
+                $push: {
+                    roles: role._id,
+                }
+            }, { new: true }, (err, user) => {
+                if (err) {
+                    res.send(err);
+                }
+                res.json(user);
+            });
         }
-    }, { new: true }, (err, user) => {
-        if (err) {
-            res.send(err);
-        }
-        res.json(user);
-    });
+        )
 }
+
 
