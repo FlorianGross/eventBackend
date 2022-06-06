@@ -13,9 +13,10 @@ exports.getAllUsers = (req, res) => {
 }
 
 exports.updateUser = (req, res) => {
+    console.log(req.body);
     User.findOneAndUpdate({ _id: req.body.id }, {
         $set: {
-            role: role.find(r => r.name === req.body.role)
+            roles: role.find(r => r.name === req.body.role)
         }
     }, { new: true }, (err, user) => {
         if (err) {
