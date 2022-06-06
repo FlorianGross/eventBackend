@@ -17,7 +17,6 @@ exports.updateUser = (req, res) => {
     Role.find({ name: req.body.role }).then
         (role => {
             console.log(role);
-
             User.findOneAndUpdate({ username: req.body.username }, {
                 $push: {
                     roles: role._id,
@@ -29,7 +28,10 @@ exports.updateUser = (req, res) => {
                 res.json(user);
             });
         }
-        )
+        ).catch(err => {
+            res.send(err);
+        }
+        );
 }
 
 
