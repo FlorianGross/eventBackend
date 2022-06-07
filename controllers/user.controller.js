@@ -1,4 +1,3 @@
-const { role } = require("../models");
 const db = require("../models");
 const User = db.user;
 const Role = db.role;
@@ -18,8 +17,8 @@ exports.updateUser = (req, res) => {
     console.log(req.body);
     let cRole = req.body.roles;
     let cUser = req.body.id;
-    Role.find({ name: cRole }).then
-        (role => {
+    Role.find({ name: cRole })
+        .then(role => {
             console.log(role);
             User.findOne({ username: cUser }).then(user => {
                 testRoles = user.roles;
