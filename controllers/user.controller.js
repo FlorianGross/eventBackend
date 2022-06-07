@@ -4,6 +4,7 @@ const User = db.user;
 const Role = db.role;
 
 exports.getAllUsers = (req, res) => {
+    console.log("User req. getAll: " + req.userId)
     User.find({}, (err, users) => {
         if (err) {
             res.send(err);
@@ -13,6 +14,7 @@ exports.getAllUsers = (req, res) => {
 }
 
 exports.updateUser = (req, res) => {
+    console.log("User req. Change: " + req.userId)
     console.log(req.body);
     let cRole = req.body.roles;
     let cUser = req.body.id;
