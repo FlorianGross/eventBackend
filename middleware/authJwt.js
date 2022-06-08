@@ -26,6 +26,7 @@ const authJwt = {
 
 function isAdmin(userId) {
     let userRole = getUserRole(userId);
+    console.log(userRole);
     if (userRole === "Admin") {
         return true;
     }
@@ -37,6 +38,7 @@ function getUserRole(userId) {
         if (err) {
             throw err;
         }
+        console.log(user.roles);
         Role.findById(user.roles[0], (err, role) => {
             if (err) {
                 throw err;
