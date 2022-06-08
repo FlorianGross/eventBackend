@@ -26,6 +26,7 @@ const authJwt = {
 
 function isAdmin(userId) {
     let userRole = getUserRole(userId);
+    console.log(userRole);
     if (userRole === 'Admin') {
         console.log('Admin');
         return true;
