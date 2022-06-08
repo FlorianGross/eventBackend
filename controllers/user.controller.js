@@ -22,10 +22,7 @@ exports.updateUser = (req, res) => {
             console.log(role);
             User.findOne({ username: cUser }).then(user => {
                 testRoles = user.roles;
-                console.log(testRoles + " " + testRoles.size());
-                if (testRoles.size() > 2) {
-                    throw new Error("Already Admin / User");
-                }
+
             });
             User.findOneAndUpdate({ username: cUser }, {
                 $push: {
