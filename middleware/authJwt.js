@@ -14,8 +14,8 @@ verifyToken = (req, res, next) => {
             return res.status(401).send({ message: "Unauthorized!" });
         }
         req.userId = decoded.id;
-        req.userRole = await getUserRole(req.userId);
-        req.isAdmin = await isAdmin(req.userId);
+        req.userRole = getUserRole(req.userId);
+        req.isAdmin = isAdmin(req.userId);
         console.log("User" + req.userId + " " + req.userRole + " " + req.isAdmin);
         next();
     });
@@ -27,12 +27,14 @@ const authJwt = {
 async function isAdmin(userId) {
     let userRole = getUserRole(userId);
     if (userRole === "Admin") {
+        console.log("Admin");
         return true;
     }
+    console.log("Not Admin");
     return false;
 }
 
-async function getUserRole(userId) {
+function getUserRole(userId) {
     User.findOne({ _id: userId }, (err, user) => {
         if (err) {
             throw err;
