@@ -37,7 +37,12 @@ function getUserRole(userId) {
         if (err) {
             throw err;
         }
-        return user.roles[0].name;
+        Role.findById(user.roles[0], (err, role) => {
+            if (err) {
+                throw err;
+            }
+            return role.name;
+        });
     });
 }
 
