@@ -43,7 +43,7 @@ const User = mongoose.model(
             required: false
         },
         image: {
-            type: mongoose.mongo.Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "Image",
         },
         roles: [
