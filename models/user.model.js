@@ -42,9 +42,9 @@ const User = mongoose.model(
             type: String,
             required: false
         },
-        imageUrl: {
-            type: String,
-            required: false
+        image: {
+            type: mongoose.mongo.Schema.Types.ObjectId,
+            ref: "Image",
         },
         roles: [
             {
