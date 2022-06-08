@@ -14,7 +14,6 @@ verifyToken = (req, res, next) => {
             return res.status(401).send({ message: "Unauthorized!" });
         }
         req.userId = decoded.id;
-        req.userRole = getUserRole(req.userId);
         req.isAdmin = isAdmin(req.userId);
         console.log("User" + req.userId + " " + req.userRole + " " + req.isAdmin);
         next();
@@ -27,7 +26,7 @@ const authJwt = {
 function isAdmin(userId) {
     let userRole = getUserRole(userId);
     console.log(userRole);
-    if (userRole === 'Admin') {
+    if (userRole.name === 'Admin') {
         console.log('Admin');
         return true;
     }
@@ -45,7 +44,7 @@ function getUserRole(userId) {
                 throw err;
             }
             console.log(role);
-            return role.name;
+            return role;
         });
     });
 }
