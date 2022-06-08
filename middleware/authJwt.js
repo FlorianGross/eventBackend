@@ -24,13 +24,13 @@ const authJwt = {
     verifyToken,
 };
 
-async function isAdmin(userId) {
+function isAdmin(userId) {
     let userRole = getUserRole(userId);
-    if (userRole === "Admin") {
-        console.log("Admin");
+    if (userRole === 'Admin') {
+        console.log('Admin');
         return true;
     }
-    console.log("Not Admin");
+    console.log('Not Admin');
     return false;
 }
 
