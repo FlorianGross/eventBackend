@@ -14,8 +14,8 @@ verifyToken = (req, res, next) => {
             return res.status(401).send({ message: "Unauthorized!" });
         }
         req.userId = decoded.id;
-        req.isAdmin = isAdmin(req.userId);
-        console.log("User" + req.userId + " " + req.userRole + " " + req.isAdmin);
+        //req.isAdmin = isAdmin(req.userId);
+        //console.log("User" + req.userId + " " + req.userRole + " " + req.isAdmin);
         next();
     });
 };
