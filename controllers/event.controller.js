@@ -1,9 +1,21 @@
 const db = require("../models");
 const event = db.event;
 
-exports.userBoard = (req, res) => {
-    event.find().lean().exec(function (err, event) {
-        return res.json(event);
+exports.getAllEvents = (req, res) => {
+    event.find({}, (err, events) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(events);
+    });
+};
+
+exports.getOneEvent = (req, res) => {
+    event.findById(req.body.eventId, (err, event) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(event);
     });
 };
 
@@ -20,7 +32,8 @@ exports.create = (req, res) => {
         maxParticipants: req.body.maxParticipants,
         group: req.body.group,
         cost: req.body.cost,
-        participants: req.body.participants
+        preSale: req.body.preSale,
+        preSaleEvent: req.body.preSaleEvent,
     }, (err, event) => {
         if (err) return res.status(400).send(err);
         return res.json(event);

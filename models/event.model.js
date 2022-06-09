@@ -32,17 +32,22 @@ const Event = mongoose.model(
             type: Date,
             required: true
         },
-        icon: {
-            type: String,
-            required: false
-        },
         maxParticipants: {
             type: Number,
             required: true
         },
-        group: {
-            type: String,
+        preSale: {
+            type: Number,
+            required: true
+        },
+        preSaleEvent: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Event",
             required: false
+        },
+        published: {
+            type: Boolean,
+            required: true
         },
         cost: {
             type: Number,
@@ -53,7 +58,25 @@ const Event = mongoose.model(
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "User"
             }
-        ]
+        ],
+        preorder: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User"
+            }
+        ],
+        details: [
+            {
+                type: String,
+                required: false
+            },
+        ],
+        detailsInfo: [
+            {
+                type: String,
+                required: false
+            },
+        ],
     });
 
 module.exports = Event;

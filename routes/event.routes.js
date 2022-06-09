@@ -8,7 +8,7 @@ module.exports = function (app) {
         );
         next();
     });
-    app.post("/api/event/event", [authJwt.verifyToken], controller.userBoard);
+    
     app.post("/api/event/create", [authJwt.verifyToken], controller.create);
     app.post("/api/event/change", [authJwt.verifyToken], controller.change);
     app.post("/api/event/delete", [authJwt.verifyToken], controller.delete);

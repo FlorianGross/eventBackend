@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 require('./routes/auth.routes')(app);
 require('./routes/event.routes')(app);
 require('./routes/user.routes')(app);
-
+require('./routes/upload.routes')(app);
 
 const db = require('./models');
 const Role = db.role;
