@@ -107,7 +107,6 @@ exports.signin = (req, res) => {
         }).then(user => {
             console.log(user);
             Role.findOne({ name: "Admin" }).then(role => {
-
             if(user.roles.includes(role._id)){
                 res.send(true);
             }
@@ -119,5 +118,11 @@ exports.signin = (req, res) => {
                 message: err.message || "Some error occurred while retrieving user."
                 });
         });
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving user."
+                });
+        }
+        );
     };
 
