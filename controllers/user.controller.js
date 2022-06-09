@@ -48,7 +48,7 @@ exports.setUserData = (req, res) => {
         if (err) {
             res.send(err);
         }
-        user.firstName = req.body.firstName;
+        user.firstName = req.body..firstName;
         user.lastName = req.body.lastName;
         user.email = req.body.email;
         user.phone = req.body.phone;
