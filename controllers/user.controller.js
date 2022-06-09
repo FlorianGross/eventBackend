@@ -46,23 +46,25 @@ exports.setUserData = (req, res) => {
     console.log(req.body);
     console.log(req.body.user);
     console.log(req.body.user.firstName);
-    User.findOne({ username: req.body.username }, (err, user) => {
+    User.findOneAndUpdate({ username: req.body.user.username }, {
+        $set: {
+            firstName: req.body.user.firstName,
+            lastName: req.body.user.lastName,
+            email: req.body.user.email,
+            phoneNumber: req.body.user.phone,
+            city: req.body.user.city,
+            street: req.body.user.street,
+            streetNumber: req.body.user.streetNumber,
+            zip: req.body.user.zip,
+            country: req.body.user.country,
+        }
+    }, { new: true }, (err, user) => {
         if (err) {
             res.send(err);
         }
-        user.firstName = "Florian";
-        user.save((err, user) => {
-            if (err) {
-                console.log(err);
-                res.send(err);
-            }
-            console.log(user);
-            res.json(user);
-        });
-    }
-    );
+        res.json(user);
+    });
 }
-
 exports.getUserData = (req, res) => {
     console.log(req.body);
     console.log(req.body.username);
