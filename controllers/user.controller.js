@@ -74,6 +74,7 @@ exports.saveImage = (req, res) =>{
         if (err) {
             res.send(err);
         }
+        console.log(user);
         res.json(user);
     });
 }
