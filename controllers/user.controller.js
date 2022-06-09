@@ -65,4 +65,14 @@ exports.setUserData = (req, res) => {
     );
 }
 
+exports.getUserData = (req, res) => {
+    User.findOne({ username: req.body.username }, (err, user) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(user);
+    }
+    );
+}
+
 
