@@ -42,4 +42,27 @@ exports.updateUser = (req, res) => {
         );
 }
 
+exports.setUserData = (req, res) => {
+    User.findOne({ username: req.body.username }, (err, user) => {
+        if (err) {
+            res.send(err);
+        }
+        user.firstName = req.body.firstName;
+        user.lastName = req.body.lastName;
+        user.email = req.body.email;
+        user.phone = req.body.phone;
+        user.street = req.body.street;
+        user.city = req.body.city;
+        user.zip = req.body.zip;
+        user.country = req.body.country;
+        user.save((err, user) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(user);
+        });
+    }
+    );
+}
+
 
