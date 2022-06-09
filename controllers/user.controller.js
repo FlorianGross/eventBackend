@@ -44,6 +44,8 @@ exports.updateUser = (req, res) => {
 
 exports.setUserData = (req, res) => {
     console.log(req.body);
+    console.log(req.body.user);
+    console.log(req.body.user.userName);
     User.findOne({ username: req.body.username }, (err, user) => {
         if (err) {
             res.send(err);
