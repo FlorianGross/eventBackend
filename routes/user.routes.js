@@ -11,7 +11,7 @@ module.exports = function (app) {
     });
 
     app.get("/api/users", [authJwt.verifyToken], controller.getAllUsers);
-    app.put("/api/updateUser", [authJwt.verifyToken], controller.updateUser);
-    app.put("/api/setUserData", [authJwt.verifyToken], controller.setUserData);
-    app.put("/api/getUserData", [authJwt.verifyToken], controller.getUserData);
+    app.post("/api/updateUser", [authJwt.verifyToken], controller.updateUser);
+    app.post("/api/setUserData", [authJwt.verifyToken], controller.setUserData);
+    app.post("/api/getUserData", [authJwt.verifyToken], controller.getUserData);
 };
