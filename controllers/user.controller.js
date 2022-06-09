@@ -65,6 +65,18 @@ exports.setUserData = (req, res) => {
         res.json(user);
     });
 }
+exports.saveImage = (req, res) =>{
+    User.findOneAndUpdate({ username: req.body.user.username }, {
+        $set: {
+            image: req.body.user.image,
+        }
+    }, { new: true }, (err, user) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(user);
+    });
+}
 exports.getUserData = (req, res) => {
     console.log(req.body);
     console.log(req.body.username);

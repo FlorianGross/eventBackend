@@ -9,7 +9,7 @@ module.exports = function (app) {
         );
         next();
     });
-
+    app.post("/api/saveimage", [authJwt.verifyToken], controller.saveImage);
     app.get("/api/users", [authJwt.verifyToken], controller.getAllUsers);
     app.post("/api/updateUser", [authJwt.verifyToken], controller.updateUser);
     app.post("/api/setUserData", [authJwt.verifyToken], controller.setUserData);
