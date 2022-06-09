@@ -106,7 +106,9 @@ exports.signin = (req, res) => {
             username: req.body.username
         }).then(user => {
             console.log(user);
-            if(user.roles.includes(Role.findOne({ name: "Admin" }))) {
+            Role.findOne({ name: "Admin" }).then(role => {
+
+            if(user.roles.includes(role._id)){
                 res.send(true);
             }
             else {
