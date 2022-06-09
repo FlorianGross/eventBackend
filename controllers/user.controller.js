@@ -45,23 +45,19 @@ exports.updateUser = (req, res) => {
 exports.setUserData = (req, res) => {
     console.log(req.body);
     console.log(req.body.user);
-    console.log(req.body.user.userName);
+    console.log(req.body.user.firstName);
     User.findOne({ username: req.body.username }, (err, user) => {
         if (err) {
             res.send(err);
         }
         user.firstName = req.body.user.firstName;
         user.lastName = req.body.user.lastName;
-        user.email = req.body.email;
-        user.phone = req.body.phone;
-        user.street = req.body.street;
-        user.city = req.body.city;
-        user.zip = req.body.zip;
-        user.country = req.body.country;
         user.save((err, user) => {
             if (err) {
+                console.log(err);
                 res.send(err);
             }
+            console.log(user);
             res.json(user);
         });
     }
