@@ -101,15 +101,21 @@ exports.signin = (req, res) => {
         });
     };
     exports.getIsAdmin = (req, res) => {
+        console.log(req.body);
         User.findOne({
             username: req.body.username
         }).then(user => {
+            console.log(user);
             if(user.roles.includes(Role.findOne({ name: "Admin" }))) {
                 res.send(true);
             }
             else {
                 res.send(false);
             }
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving user."
+                });
         });
     };
 
