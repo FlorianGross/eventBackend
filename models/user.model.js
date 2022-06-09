@@ -30,6 +30,10 @@ const User = mongoose.model(
             type: String,
             required: false
         },
+        streetNumber: {
+            type: String,
+            required: false
+        },
         city: {
             type: String,
             required: false

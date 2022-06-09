@@ -51,7 +51,7 @@ exports.setUserData = (req, res) => {
             firstName: req.body.user.firstName,
             lastName: req.body.user.lastName,
             email: req.body.user.email,
-            phoneNumber: req.body.user.phone,
+            phoneNumber: req.body.user.phoneNumber,
             city: req.body.user.city,
             street: req.body.user.street,
             streetNumber: req.body.user.streetNumber,
