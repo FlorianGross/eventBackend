@@ -12,6 +12,7 @@ module.exports = function(app) {
         });
 
     app.post('/api/upload', upload.single('file'), (req, res) => {
+        console.log(req);
         res.send(req.file);
         console.log("File" + req.file);
     }
