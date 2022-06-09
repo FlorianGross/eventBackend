@@ -50,8 +50,7 @@ exports.setUserData = (req, res) => {
         if (err) {
             res.send(err);
         }
-        user.firstName = req.body.user.firstName;
-        user.lastName = req.body.user.lastName;
+        user.firstName = "Florian";
         user.save((err, user) => {
             if (err) {
                 console.log(err);
