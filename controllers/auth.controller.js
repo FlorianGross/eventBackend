@@ -99,4 +99,17 @@ exports.signin = (req, res) => {
                 accessToken: token,
             });
         });
-};
+    };
+    exports.getIsAdmin = (req, res) => {
+        User.findOne({
+            username: req.body.username
+        }).then(user => {
+            if(user.roles.includes(Role.findOne({ name: "Admin" }))) {
+                res.send(true);
+            }
+            else {
+                res.send(false);
+            }
+        });
+    };
+
