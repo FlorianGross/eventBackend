@@ -2,12 +2,6 @@ const mongoose = require("mongoose");
 const Event = mongoose.model(
     "Event",
     {
-        creater: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "User"
-            }
-        ],
         name: {
             type: String,
             required: true
@@ -37,12 +31,11 @@ const Event = mongoose.model(
             required: true
         },
         preSale: {
-            type: Number,
+            type: Boolean,
             required: true
         },
-        preSaleEvent: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Event",
+        preSaleInfo: {
+            type: String,
             required: false
         },
         published: {
@@ -65,18 +58,24 @@ const Event = mongoose.model(
                 ref: "User"
             }
         ],
-        details: [
-            {
-                type: String,
-                required: false
-            },
-        ],
-        detailsInfo: [
-            {
-                type: String,
-                required: false
-            },
-        ],
+        eventSpecials:
+        {
+            type: String,
+            required: false
+        },
+        contactPerson:
+        {
+            type: String,
+            required: false
+        },
+        contactPhoneNumber: {
+            type: String,
+            required: false
+        },
+        contactEmail: {
+            type: String,
+            required: false
+        }
     });
 
 module.exports = Event;

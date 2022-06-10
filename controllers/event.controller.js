@@ -21,19 +21,20 @@ exports.getOneEvent = (req, res) => {
 
 exports.create = (req, res) => {
     event.create({
-        creater: req.body.creater,
-        name: req.body.name,
-        description: req.body.description,
-        image: req.body.image,
-        location: req.body.location,
-        start: req.body.start,
-        end: req.body.end,
-        icon: req.body.icon,
-        maxParticipants: req.body.maxParticipants,
-        group: req.body.group,
-        cost: req.body.cost,
-        preSale: req.body.preSale,
-        preSaleEvent: req.body.preSaleEvent,
+        name: event.name,
+        description: event.description,
+        image: event.image,
+        location: event.location,
+        start: event.start,
+        end: event.end,
+        maxParticipants: event.maxParticipants,
+        preSale: event.preSale,
+        preSaleInfo: event.preSaleInfo,
+        cost: event.cost,
+        eventSpecials: event.eventSpecials,
+        contactPerson: event.contactPerson,
+        contactEmail: event.contactEmail,
+        contactPhoneNumber: event.contactPhoneNumber,
     }, (err, event) => {
         if (err) return res.status(400).send(err);
         return res.json(event);
