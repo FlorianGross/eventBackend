@@ -43,7 +43,22 @@ exports.create = (req, res) => {
 };
 
 exports.change = (req, res) => {
-    event.findByIdAndUpdate(req.body._id, req.body, { new: true }, (err, event) => {
+    event.findByIdAndUpdate(req.body.id, {
+        name: event.name,
+        description: event.description,
+        image: event.image,
+        location: event.location,
+        start: event.start,
+        end: event.end,
+        maxParticipants: event.maxParticipants,
+        preSale: event.preSale,
+        preSaleInfo: event.preSaleInfo,
+        cost: event.cost,
+        eventSpecials: event.eventSpecials,
+        contactPerson: event.contactPerson,
+        contactEmail: event.contactEmail,
+        contactPhoneNumber: event.contactPhoneNumber,
+    }, { new: true }, (err, event) => {
         if (err) {
             return res.status(500).send(err);
         }
