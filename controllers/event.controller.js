@@ -42,27 +42,34 @@ exports.create = (req, res) => {
 };
 
 exports.change = (req, res) => {
-    event.findByIdAndUpdate(req.body.id, {
-        name: event.name,
-        description: event.description,
-        image: event.image,
-        location: event.location,
-        start: event.start,
-        end: event.end,
-        maxParticipants: event.maxParticipants,
-        preSale: event.preSale,
-        preSaleInfo: event.preSaleInfo,
-        cost: event.cost,
-        eventSpecials: event.eventSpecials,
-        contactPerson: event.contactPerson,
-        contactEmail: event.contactEmail,
-        contactPhoneNumber: event.contactPhoneNumber,
-    }, { new: true }, (err, event) => {
+    console.log(req.body);
+    event.findById(req.body.id, (err, event) => {
         if (err) {
-            return res.status(500).send(err);
+            res.send(err);
         }
-        return res.status(200).send(event);
-    });
+        event.name = req.body.name;
+        event.description = req.body.description;
+        event.image = req.body.image;
+        event.location = req.body.locatiom;
+        event.start = req.body.start;
+        event.end = req.body.end;
+        event.maxParticipants = req.body.maxParticipants;
+        event.preSale = req.body.preSale;
+        event.preSaleInfo = req.body.preSaleInfo;
+        event.cost = req.body.cost;
+        event.eventSpecials = req.body.eventSpecials;
+        event.contactPerson = req.body.contactPerson;
+        event.contactEmail = req.body.contactEmail;
+        event.contactPhoneNumber = req.body.contactPhoneNumber;
+        event.save((err, event) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(event);
+        }
+        );
+    }
+    );
 };
 
 exports.delete = (req, res) => {
