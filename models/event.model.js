@@ -4,15 +4,15 @@ const Event = mongoose.model(
     {
         name: {
             type: String,
-            required: true
+            required: false
         },
         description: {
             type: String,
-            required: true
+            required: false
         },
         image: {
             type: String,
-            required: true
+            required: false
         },
         location: {
             type: String,
@@ -20,19 +20,19 @@ const Event = mongoose.model(
         },
         start: {
             type: Date,
-            required: true
+            required: false
         },
         end: {
             type: Date,
-            required: true
+            required: false
         },
         maxParticipants: {
             type: Number,
-            required: true
+            required: false
         },
         preSale: {
             type: Boolean,
-            required: true
+            required: false
         },
         preSaleInfo: {
             type: String,
@@ -40,11 +40,11 @@ const Event = mongoose.model(
         },
         published: {
             type: Boolean,
-            required: true
+            required: false
         },
         cost: {
             type: Number,
-            required: true
+            required: false
         },
         participants: [
             {
