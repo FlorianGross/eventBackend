@@ -2,7 +2,7 @@ const db = require("../models");
 const Event = db.event;
 
 exports.getAllEvents = (req, res) => {
-    event.find({}, (err, events) => {
+    Event.find({}, (err, events) => {
         if (err) {
             res.send(err);
         }
