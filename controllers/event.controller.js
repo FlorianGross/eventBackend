@@ -1,5 +1,5 @@
 const db = require("../models");
-const event = db.event;
+const Event = db.event;
 
 exports.getAllEvents = (req, res) => {
     event.find({}, (err, events) => {
@@ -11,7 +11,7 @@ exports.getAllEvents = (req, res) => {
 };
 
 exports.getOneEvent = (req, res) => {
-    event.findById(req.body.id, (err, event) => {
+    Event.findById(req.body.id, (err, event) => {
         if (err) {
             res.send(err);
         }
@@ -20,21 +20,21 @@ exports.getOneEvent = (req, res) => {
 };
 
 exports.create = (req, res) => {
-    event.create({
-        name: event.name,
-        description: event.description,
-        image: event.image,
-        location: event.location,
-        start: event.start,
-        end: event.end,
-        maxParticipants: event.maxParticipants,
-        preSale: event.preSale,
-        preSaleInfo: event.preSaleInfo,
-        cost: event.cost,
-        eventSpecials: event.eventSpecials,
-        contactPerson: event.contactPerson,
-        contactEmail: event.contactEmail,
-        contactPhoneNumber: event.contactPhoneNumber,
+    Event.create({
+        name: req.body.name,
+        description: req.body.description,
+        image: req.body.image,
+        location: req.body.locatiom,
+        start: req.body.start,
+        end: req.body.end,
+        maxParticipants: req.body.maxParticipants,
+        preSale: req.body.preSale,
+        preSaleInfo: req.body.preSaleInfo,
+        cost: req.body.cost,
+        eventSpecials: req.body.eventSpecials,
+        contactPerson: req.body.contactPerson,
+        contactEmail: req.body.contactEmail,
+        contactPhoneNumber: req.body.contactPhoneNumber,
     }, (err, event) => {
         if (err) return res.status(400).send(err);
         return res.json(event);
@@ -43,7 +43,7 @@ exports.create = (req, res) => {
 
 exports.change = (req, res) => {
     console.log(req.body);
-    event.findById(req.body.id, (err, event) => {
+    Event.findById(req.body._id, (err, event) => {
         if (err) {
             res.send(err);
         }
@@ -73,7 +73,7 @@ exports.change = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-    event.findByIdAndRemove(req.body._id, (err, event) => {
+    Event.findByIdAndRemove(req.body._id, (err, event) => {
         if (err) {
             return res.status(500).send(err);
         }
@@ -82,7 +82,7 @@ exports.delete = (req, res) => {
 };
 
 exports.participate = (req, res) => {
-    event.findByIdAndUpdate(req.body._id, { $push: { participants: req.body.uid } }, { new: true }, (err, event) => {
+    Event.findByIdAndUpdate(req.body._id, { $push: { participants: req.body.uid } }, { new: true }, (err, event) => {
         if (err) {
             return res.status(500).send(err);
         }
@@ -91,7 +91,7 @@ exports.participate = (req, res) => {
 };
 
 exports.unparticipate = (req, res) => {
-    event.findByIdAndUpdate(req.body._id, { $pull: { participants: req.body.uid } }, { new: true }, (err, event) => {
+    Event.findByIdAndUpdate(req.body._id, { $pull: { participants: req.body.uid } }, { new: true }, (err, event) => {
         if (err) {
             return res.status(500).send(err);
         }

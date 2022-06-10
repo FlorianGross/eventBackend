@@ -40,7 +40,8 @@ const Event = mongoose.model(
         },
         published: {
             type: Boolean,
-            required: false
+            required: false,
+            default: false
         },
         cost: {
             type: Number,
