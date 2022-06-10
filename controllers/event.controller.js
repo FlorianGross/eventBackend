@@ -11,7 +11,8 @@ exports.getAllEvents = (req, res) => {
 };
 
 exports.getOneEvent = (req, res) => {
-    event.findById(req.body.eventId, (err, event) => {
+    console.log(req.body);
+    event.findById(req.body.id, (err, event) => {
         if (err) {
             res.send(err);
         }
