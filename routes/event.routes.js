@@ -8,6 +8,7 @@ module.exports = function (app) {
         );
         next();
     });
+    app.post("/api/event", [authJwt.verifyToken], controller.getOneEvent);
     app.post("/api/events", [authJwt.verifyToken], controller.getAllEvents);
     app.post("/api/event/create", [authJwt.verifyToken], controller.create);
     app.post("/api/event/change", [authJwt.verifyToken], controller.change);
