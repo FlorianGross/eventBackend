@@ -43,7 +43,7 @@ exports.create = (req, res) => {
 
 exports.change = (req, res) => {
     console.log(req.body);
-    Event.findById(req.body._id, (err, event) => {
+    Event.findById(req.body.id, (err, event) => {
         if (err) {
             res.send(err);
         }
