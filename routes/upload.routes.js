@@ -1,5 +1,5 @@
 const multer = require('multer');
-module.exports = function(app) {
+module.exports = function (app) {
     app.use(function (req, res, next) {
         res.header(
             "Access-Control-Allow-Headers",
@@ -9,12 +9,10 @@ module.exports = function(app) {
     });
     const upload = multer({
         dest: './uploads/'
-        });
+    });
 
     app.post('/api/upload', upload.single('file'), (req, res) => {
-        console.log(req);
         res.send(req.file);
-        console.log("File" + req.file);
     }
     );
 

@@ -99,15 +99,13 @@ exports.signin = (req, res) => {
                 accessToken: token,
             });
         });
-    };
-    exports.getIsAdmin = (req, res) => {
-        console.log(req.body);
-        User.findOne({
-            username: req.body.username
-        }).then(user => {
-            console.log(user);
-            Role.findOne({ name: "Admin" }).then(role => {
-            if(user.roles.includes(role._id)){
+};
+exports.getIsAdmin = (req, res) => {
+    User.findOne({
+        username: req.body.username
+    }).then(user => {
+        Role.findOne({ name: "Admin" }).then(role => {
+            if (user.roles.includes(role._id)) {
                 res.send(true);
             }
             else {
@@ -116,13 +114,13 @@ exports.signin = (req, res) => {
         }).catch(err => {
             res.status(500).send({
                 message: err.message || "Some error occurred while retrieving user."
-                });
+            });
         });
-        }).catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving user."
-                });
-        }
-        );
-    };
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving user."
+        });
+    }
+    );
+};
 
