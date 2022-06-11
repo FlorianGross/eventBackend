@@ -51,7 +51,7 @@ exports.change = (req, res) => {
         event.name = req.body.name;
         event.description = req.body.description;
         event.image = req.body.image;
-        event.location = req.body.locatiom;
+        event.location = req.body.location;
         event.start = req.body.start;
         event.end = req.body.end;
         event.maxParticipants = req.body.maxParticipants;
