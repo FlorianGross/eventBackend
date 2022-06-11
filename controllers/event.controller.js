@@ -168,12 +168,21 @@ exports.preOrder = (req, res) => {
 }
 
 exports.unPreOrder = (req, res) => {
-    Event.findByIdAndUpdate(req.body.id, { $pull: { preOrder: req.body.id } }, { new: true }, (err, event) => {
+    console.log(req.body);
+    Event.findById(req.body.id, (err, event) => {
         if (err) {
-            return res.status(500).send(err);
+            res.send(err);
         }
-        return res.status(200).send(event);
-    });
+        event.preorder.pull(req.body.user);
+        event.save((err, event) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(event);
+        }
+        );
+    }
+    );
 }
 
 exports.getPreOrder = (req, res) => {
