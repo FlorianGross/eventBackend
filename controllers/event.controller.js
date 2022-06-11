@@ -110,7 +110,7 @@ exports.unparticipate = (req, res) => {
         if (err) {
             res.send(err);
         }
-        event.participants.pull(req.body.user.id);
+        event.participants.pull(req.body.user);
         event.save((err, event) => {
             if (err) {
                 res.send(err);
