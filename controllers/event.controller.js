@@ -105,13 +105,21 @@ exports.participate = (req, res) => {
 
 
 exports.unparticipate = (req, res) => {
-    Event.findByIdAndUpdate(req.body.id, { $pull: { participants: req.body.id } }, { new: true }, (err, event) => {
+    Event.findById(req.body.id, (err, event) => {
         if (err) {
-            return res.status(500).send(err);
+            res.send(err);
         }
-        return res.status(200).send(event);
-    });
-};
+        event.participants.pull(req.body.user.id);
+        event.save((err, event) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(event);
+        }
+        );
+    }
+    );
+}
 
 exports.getAllParticipants = (req, res) => {
     Event.findById(req.body.id, (err, event) => {
