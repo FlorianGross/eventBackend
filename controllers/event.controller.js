@@ -24,7 +24,7 @@ exports.create = (req, res) => {
         name: req.body.name,
         description: req.body.description,
         image: req.body.image,
-        location: req.body.locatiom,
+        location: req.body.location,
         start: req.body.start,
         end: req.body.end,
         maxParticipants: req.body.maxParticipants,
