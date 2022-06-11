@@ -15,4 +15,10 @@ module.exports = function (app) {
     app.post("/api/event/delete", [authJwt.verifyToken], controller.delete);
     app.post("/api/event/participate", [authJwt.verifyToken], controller.participate);
     app.post("/api/event/unparticipate", [authJwt.verifyToken], controller.unparticipate);
+    app.post("/api/event/getParticipants", [authJwt.verifyToken], controller.getAllParticipants);
+    app.post("/api/event/getParticipantsAmount", [authJwt.verifyToken], controller.getParticipantsAmount);
+    app.post("/api/event/preOrder", [authJwt.verifyToken], controller.preOrder);
+    app.post("/api/event/unPreOrder", [authJwt.verifyToken], controller.unPreOrder);
+    app.post("/api/event/getPreOrder", [authJwt.verifyToken], controller.getPreOrder);
+    app.post("/api/event/getPreOrderAmount", [authJwt.verifyToken], controller.getPreOrderAmount);
 };

@@ -1,4 +1,5 @@
 const db = require("../models");
+const User = require("../models/user.model");
 const Event = db.event;
 
 exports.getAllEvents = (req, res) => {
@@ -73,7 +74,7 @@ exports.change = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-    Event.findByIdAndRemove(req.body._id, (err, event) => {
+    Event.findByIdAndRemove(req.body.id, (err, event) => {
         if (err) {
             return res.status(500).send(err);
         }
@@ -82,7 +83,29 @@ exports.delete = (req, res) => {
 };
 
 exports.participate = (req, res) => {
-    Event.findByIdAndUpdate(req.body._id, { $push: { participants: req.body.uid } }, { new: true }, (err, event) => {
+    Event.findById(req.body.id, (err, event) => {
+        if (err) {
+            res.send(err);
+        }
+        if (event.participants.length < event.maxParticipants) {
+            event.participants.push(req.body.user);
+            event.save((err, event) => {
+                if (err) {
+                    res.send(err);
+                }
+                res.json(event);
+            }
+            );
+        } else {
+            res.json({ message: "Event is full" });
+        }
+    }
+    );
+}
+
+
+exports.unparticipate = (req, res) => {
+    Event.findByIdAndUpdate(req.body.id, { $pull: { participants: req.body.id } }, { new: true }, (err, event) => {
         if (err) {
             return res.status(500).send(err);
         }
@@ -90,14 +113,85 @@ exports.participate = (req, res) => {
     });
 };
 
-exports.unparticipate = (req, res) => {
-    Event.findByIdAndUpdate(req.body._id, { $pull: { participants: req.body.uid } }, { new: true }, (err, event) => {
+exports.getAllParticipants = (req, res) => {
+    Event.findById(req.body.id, (err, event) => {
+        if (err) {
+            res.send(err);
+        }
+        User.find({
+            _id: { $in: event.participants }
+        }, (err, users) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(users);
+        });
+    }
+    );
+}
+
+exports.getParticipantsAmount = (req, res) => {
+    Event.findById(req.body.id, (err, event) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(event.participants.length);
+    }
+    );
+}
+
+exports.preOrder = (req, res) => {
+    Event.findById(req.body.id, (err, event) => {
+        if (err) {
+            res.send(err);
+        }
+        event.preOrder.push(req.body.user);
+        event.save((err, event) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(event);
+        }
+        );
+    }
+    );
+}
+
+exports.unPreOrder = (req, res) => {
+    Event.findByIdAndUpdate(req.body.id, { $pull: { preOrder: req.body.id } }, { new: true }, (err, event) => {
         if (err) {
             return res.status(500).send(err);
         }
         return res.status(200).send(event);
     });
-};
+}
+
+exports.getPreOrder = (req, res) => {
+    Event.findById(req.body.id, (err, event) => {
+        if (err) {
+            res.send(err);
+        }
+        User.find({
+            _id: { $in: event.preOrder }
+        }, (err, users) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(users);
+        });
+    }
+    );
+}
+
+exports.getPreOrderAmount = (req, res) => {
+    Event.findById(req.body.id, (err, event) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(event.preOrder.length);
+    }
+    );
+}
 
 
 
