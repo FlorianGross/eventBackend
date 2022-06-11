@@ -150,11 +150,12 @@ exports.getParticipantsAmount = (req, res) => {
 }
 
 exports.preOrder = (req, res) => {
+    console.log(req.body);
     Event.findById(req.body.id, (err, event) => {
         if (err) {
             res.send(err);
         }
-        event.preOrder.push(req.body.user);
+        event.preorder.push(req.body.user);
         event.save((err, event) => {
             if (err) {
                 res.send(err);
