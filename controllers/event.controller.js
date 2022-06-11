@@ -188,7 +188,7 @@ exports.getPreOrderAmount = (req, res) => {
         if (err) {
             res.send(err);
         }
-        res.json(event.preOrder.length);
+        res.json(event.preorder.length);
     }
     );
 }
