@@ -105,6 +105,7 @@ exports.participate = (req, res) => {
 
 
 exports.unparticipate = (req, res) => {
+    console.log(req.body);
     Event.findById(req.body.id, (err, event) => {
         if (err) {
             res.send(err);
