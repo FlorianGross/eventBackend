@@ -8,14 +8,8 @@ exports.signup = (req, res) => {
     const user = new User({
         username: req.body.username,
         email: req.body.email,
-        imageUrl: req.body.imageUrl,
         password: bcrypt.hashSync(req.body.password, 8),
-        Number: req.body.Number,
-        street: req.body.street,
-        city: req.body.city,
-        zip: req.body.zip,
-        country: req.body.country,
-        imageUrl: req.body.imageUrl,
+        
     });
     user.save((err, user) => {
         if (err) {
