@@ -10,6 +10,6 @@ module.exports = function (app) {
     });
 
     app.post("/api/upload", [authJwt.verifyToken], controller.upload);
-    app.get("/api/download/:filename", [authJwt.verifyToken], controller.download);
+    app.get("/api/download/:filename", controller.download);
 
 };
