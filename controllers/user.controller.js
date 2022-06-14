@@ -49,6 +49,7 @@ exports.setUserData = (req, res) => {
             streetNumber: req.body.user.streetNumber,
             zip: req.body.user.zip,
             country: req.body.user.country,
+            image: req.body.user.image,
         }
     }, { new: true }, (err, user) => {
         if (err) {
