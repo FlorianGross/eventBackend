@@ -8,17 +8,20 @@ const upload = async (req, res) => {
             res.status(400).json({
                 message: 'No file uploaded'
             });
+            console.log('No file uploaded');
         }
         res.status(200).json({
             message: 'File uploaded successfully',
             file: file
         });
+        console.log('File uploaded successfully' + file);
     }
     catch (err) {
         res.status(500).json({
             message: 'Error uploading file',
             error: err
         });
+        console.log('Error uploading file');
     }
 }
 const download = (req, res) => {
