@@ -26,7 +26,7 @@ const upload = async (req, res) => {
 }
 const download = (req, res) => {
     const file = req.params.filename;
-    const directory = './uploads/';
+    const directory = __basedir + '/resources/static/assets/uploads/';
     res.download(directory + file, file, (err) => {
         if (err) {
             res.send(err);
