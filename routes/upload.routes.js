@@ -1,4 +1,5 @@
-const multer = require('multer');
+const controller = require('../controllers/upload.controller');
+const { authJwt } = require("../middleware");
 module.exports = function (app) {
     app.use(function (req, res, next) {
         res.header(
@@ -7,13 +8,8 @@ module.exports = function (app) {
         );
         next();
     });
-    const upload = multer({
-        dest: './uploads/'
-    });
 
-    app.post('/api/upload', upload.single('file'), (req, res) => {
-        res.send(req.file);
-    }
-    );
+    app.post("/api/upload", [authJwt.verifyToken], controller.uploadFiles);
+    app.get("/api/download/:filename", [authJwt.verifyToken], controller.download);
 
 };
