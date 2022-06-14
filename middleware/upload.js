@@ -1,27 +1,17 @@
-// https://www.bezkoder.com/node-js-upload-store-images-mongodb/
-const multer = require('multer');
-const util = require('util');
-const { GridFsStorage } = require('multer-gridfs-storage');
+// https://www.bezkoder.com/node-js-express-file-upload/
 
-var storage = new GridFsStorage({
-    url: "mongodb+srv://webdev:MeinCoolesPassword@cluster0.2snr7nl.mongodb.net/?retryWrites=true&w=majority",
-    options: {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        authSource: 'admin',
-    },
-    file: (req, file) => {
-        const match = ["image/png", "image/jpeg"];
-        if (match.indexOf(file.mimetype) === -1) {
-            const filename = `${Date.now()}-${file.originalname}`;
-            return filename;
-        }
-        return {
-            bucketName: 'images',
-            filename: `${Date.now()}-${file.originalname}`
-        };
+const util = require('util');
+const multer = require('multer');
+const maxSize = 2 * 1024 * 1024;
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads/');
     }
-});
-var uploadFiles = multer({ storage: storage }).single('file');
-var uploadFilesMiddleware = util.promisify(uploadFiles);
-module.exports = uploadFilesMiddleware;
+    , filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
+}
+);
+const upload = multer({ storage: storage, limits: { fileSize: maxSize } }).single('file');
+let uploadFileMiddleware = util.promisify(upload);
+module.exports = uploadFileMiddleware;

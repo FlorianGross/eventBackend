@@ -9,7 +9,7 @@ module.exports = function (app) {
         next();
     });
 
-    app.post("/api/upload", [authJwt.verifyToken], controller.uploadFiles);
+    app.post("/api/upload", [authJwt.verifyToken], controller.upload);
     app.get("/api/download/:filename", [authJwt.verifyToken], controller.download);
 
 };

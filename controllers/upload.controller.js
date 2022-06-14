@@ -1,53 +1,37 @@
-// https://www.bezkoder.com/node-js-upload-store-images-mongodb/
+// https://www.bezkoder.com/node-js-express-file-upload/
 
-const upload = require('../middleware/upload');
-const MongoClient = require('mongodb').MongoClient;
-const GridFsStorage = require('mongodb').GridFSBucket;
-const url = "mongodb+srv://webdev:MeinCoolesPassword@cluster0.2snr7nl.mongodb.net/?retryWrites=true&w=majority"
-const mongoClient = new MongoClient(url);
-const uploadFiles = async (req, res)=> {
-    try{
-        await upload(req, res);
-        console.log(req.file);
-        if(req.file == undefined){
-            return res.send({
-                message: 'No file selected'
+const uploadFile = require('../middleware/upload');
+const upload = async (req, res) => {
+    try {
+        const file = await uploadFile(req, res);
+        if (req.file === undefined) {
+            res.status(400).json({
+                message: 'No file uploaded'
             });
         }
-        return res.send({
-            message: 'File uploaded successfully'
-        })
-        
-    }catch(err){
-        return res.send({
-            message: err
-        })
+        res.status(200).json({
+            message: 'File uploaded successfully',
+            file: file
+        });
     }
-};
-
-const download = async (req, res)=> {
-    try{
-        await mongoClient.connect();
-        const bucket = new GridFSBucket(url, {bucketName: 'images'});
-        let downloadStream = bucket.openDownloadStreamByName(req.params.filename);
-        downloadStream.on('data', function(chunk) {
-            res.write(chunk);
-        }
-        ).on('error', function(err) {
-            res.send(err);
-        }
-        ).on('end', function() {
-            res.end();
-        }
-        );
-    }catch(err){
-        return res.send({
-            message: err
+    catch (err) {
+        res.status(500).json({
+            message: 'Error uploading file',
+            error: err
         });
     }
 }
+const download = (req, res) => {
+    const file = req.params.filename;
+    const directory = './uploads/';
+    res.download(directory + file, file, (err) => {
+        if (err) {
+            res.send(err);
+        }
+    });
+}
 
 module.exports = {
-    uploadFiles,
+    upload,
     download
 }
