@@ -21,7 +21,7 @@ const upload = async (req, res) => {
             message: 'Error uploading file',
             error: err
         });
-        console.log('Error uploading file');
+        console.log('Error uploading file '+ err);
     }
 }
 const download = (req, res) => {
