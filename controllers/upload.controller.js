@@ -12,7 +12,7 @@ const upload = async (req, res) => {
         }
         res.status(200).json({
             message: 'File uploaded successfully',
-            file: file
+            file: __basedir + '/resources/static/assets/uploads/' + req.file.filename
         });
         console.log('File uploaded successfully' + file);
     }
