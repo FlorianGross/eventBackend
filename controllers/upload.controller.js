@@ -1,3 +1,5 @@
+// https://www.bezkoder.com/node-js-upload-store-images-mongodb/
+
 const upload = require('../middleware/upload');
 const MongoClient = require('mongodb').MongoClient;
 const GridFsStorage = require('mongodb').GridFSBucket;
