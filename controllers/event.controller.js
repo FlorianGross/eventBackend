@@ -206,14 +206,14 @@ exports.getAllEventsWhereUserIsInvolved = (req, res) => {
         if (err) {
             res.send(err);
         }
-        eventList.push(events);
+        eventList.pushAll(events);
         Event.find({
             preorder: req.body.user
         }, (err, event) => {
             if (err) {
                 res.send(err);
             }
-            eventList.push(event);
+            eventList.pushAll(event);
             var eventSet = new Set(eventList);
             var eventArray = Array.from(eventSet);
             console.log(eventArray);
