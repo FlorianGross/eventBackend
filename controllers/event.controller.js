@@ -218,6 +218,7 @@ exports.getAllEventsWhereUserIsInvolved = (req, res) => {
             console.log(event);
             Array.apply(eventList, event);
             var eventSet = new Set(eventList);
+            console.log(eventSet);
             var eventArray = Array.from(eventSet);
             console.log(eventArray);
             res.json(eventArray);
