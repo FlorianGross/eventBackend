@@ -21,4 +21,5 @@ module.exports = function (app) {
     app.post("/api/event/unPreOrder", [authJwt.verifyToken], controller.unPreOrder);
     app.post("/api/event/getPreOrder", [authJwt.verifyToken], controller.getPreOrder);
     app.post("/api/event/getPreOrderAmount", [authJwt.verifyToken], controller.getPreOrderAmount);
+    app.post("/api/event/getUserInvolvedInEvent", [authJwt.verifyToken], controller.getAllEventsWhereUserIsInvolved);
 };

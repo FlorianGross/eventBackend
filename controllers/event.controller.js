@@ -67,10 +67,8 @@ exports.change = (req, res) => {
                 res.send(err);
             }
             res.json(event);
-        }
-        );
-    }
-    );
+        });
+    });
 };
 
 exports.delete = (req, res) => {
@@ -94,13 +92,11 @@ exports.participate = (req, res) => {
                     res.send(err);
                 }
                 res.json(event);
-            }
-            );
+            });
         } else {
             res.json({ message: "Event is full" });
         }
-    }
-    );
+    });
 }
 
 
@@ -116,10 +112,8 @@ exports.unparticipate = (req, res) => {
                 res.send(err);
             }
             res.json(event);
-        }
-        );
-    }
-    );
+        });
+    });
 }
 
 exports.getAllParticipants = (req, res) => {
@@ -135,8 +129,7 @@ exports.getAllParticipants = (req, res) => {
             }
             res.json(users);
         });
-    }
-    );
+    });
 }
 
 exports.getParticipantsAmount = (req, res) => {
@@ -145,8 +138,7 @@ exports.getParticipantsAmount = (req, res) => {
             res.send(err);
         }
         res.json(event.participants.length);
-    }
-    );
+    });
 }
 
 exports.preOrder = (req, res) => {
@@ -161,10 +153,8 @@ exports.preOrder = (req, res) => {
                 res.send(err);
             }
             res.json(event);
-        }
-        );
-    }
-    );
+        });
+    });
 }
 
 exports.unPreOrder = (req, res) => {
@@ -179,10 +169,8 @@ exports.unPreOrder = (req, res) => {
                 res.send(err);
             }
             res.json(event);
-        }
-        );
-    }
-    );
+        });
+    });
 }
 
 exports.getPreOrder = (req, res) => {
@@ -198,8 +186,7 @@ exports.getPreOrder = (req, res) => {
             }
             res.json(users);
         });
-    }
-    );
+    });
 }
 
 exports.getPreOrderAmount = (req, res) => {
@@ -208,9 +195,29 @@ exports.getPreOrderAmount = (req, res) => {
             res.send(err);
         }
         res.json(event.preorder.length);
-    }
-    );
+    });
 }
 
-
+exports.getAllEventsWhereUserIsInvolved = (req, res) => {
+    var eventList = [];
+    Event.find({
+        participants: req.body.user
+    }, (err, events) => {
+        if (err) {
+            res.send(err);
+        }
+        eventList.push(events);
+        Event.find({
+            preorder: req.body.user
+        }, (err, event) => {
+            if (err) {
+                res.send(err);
+            }
+            eventList.push(event);
+            var eventSet = new Set(eventList);
+            var eventArray = Array.from(eventSet);
+            res.json(eventArray);
+        });
+    });
+}
 
