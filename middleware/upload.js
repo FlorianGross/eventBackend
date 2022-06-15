@@ -1,7 +1,7 @@
 // https://www.bezkoder.com/node-js-express-file-upload/
 const util = require('util');
 const multer = require('multer');
-const maxSize = 2 * 1024 * 1024;
+const maxSize = 10 * 1024 * 1024;
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, __basedir + '/resources/static/assets/uploads/');
