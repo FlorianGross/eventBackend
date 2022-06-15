@@ -208,7 +208,6 @@ exports.getAllEventsWhereUserIsInvolved = (req, res) => {
             res.send(err);
         }
         console.log(events);
-        Array.apply(eventList, events);
         Event.find({
             preorder: req.body.user
         }, (err, event) => {
@@ -216,9 +215,9 @@ exports.getAllEventsWhereUserIsInvolved = (req, res) => {
                 res.send(err);
             }
             console.log(event);
-            Array.apply(eventList, event);
-            console.log(eventList);
-            res.json(eventList);
+            Array.apply(events, event);
+            console.log(events);
+            res.json(events);
         });
     });
 }
