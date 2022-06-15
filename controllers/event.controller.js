@@ -200,12 +200,14 @@ exports.getPreOrderAmount = (req, res) => {
 
 exports.getAllEventsWhereUserIsInvolved = (req, res) => {
     var eventList = [];
+    console.log(req.body);
     Event.find({
         participants: req.body.user
     }, (err, events) => {
         if (err) {
             res.send(err);
         }
+        console.log(events);
         Array.apply(eventList, events);
         Event.find({
             preorder: req.body.user
@@ -213,6 +215,7 @@ exports.getAllEventsWhereUserIsInvolved = (req, res) => {
             if (err) {
                 res.send(err);
             }
+            console.log(event);
             Array.apply(eventList, event);
             var eventSet = new Set(eventList);
             var eventArray = Array.from(eventSet);
