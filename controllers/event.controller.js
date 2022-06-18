@@ -43,7 +43,6 @@ exports.create = (req, res) => {
 };
 
 exports.change = (req, res) => {
-    console.log(req.body);
     Event.findById(req.params.id, (err, event) => {
         if (err) {
             res.send(err);
@@ -158,13 +157,13 @@ exports.getPreOrder = (req, res) => {
 
 exports.getAllEventsWhereUserIsInvolved = (req, res) => {
     Event.find({
-        participants: req.body.user
+        participants: req.params.id
     }, (err, events) => {
         if (err) {
             res.send(err);
         }
         Event.find({
-            preorder: req.body.user
+            preorder: req.params.id
         }, (err, event) => {
             if (err) {
                 res.send(err);
