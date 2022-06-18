@@ -76,6 +76,7 @@ exports.signin = (req, res) => {
         });
 };
 exports.getIsAdmin = (req, res) => {
+    console.log(req.body);
     User.findOne({
         username: req.body.username
     }).then(user => {

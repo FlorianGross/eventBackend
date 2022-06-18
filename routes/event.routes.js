@@ -7,7 +7,6 @@ module.exports = function (app) {
             "x-access-token, Origin, Content-Type, Accept"
         );
         next();
-        console.log(res)
     });
     app.get("/api/events", [authJwt.verifyToken], controller.getAllEvents);
     app.post("/api/event/", [authJwt.verifyToken], controller.create);
