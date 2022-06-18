@@ -12,7 +12,7 @@ exports.getAllEvents = (req, res) => {
 };
 
 exports.getOneEvent = (req, res) => {
-    Event.findById(req.body.id, (err, event) => {
+    Event.findById(req.params.id, (err, event) => {
         if (err) {
             res.send(err);
         }
@@ -44,7 +44,7 @@ exports.create = (req, res) => {
 
 exports.change = (req, res) => {
     console.log(req.body);
-    Event.findById(req.body.id, (err, event) => {
+    Event.findById(req.params.id, (err, event) => {
         if (err) {
             res.send(err);
         }
@@ -72,7 +72,7 @@ exports.change = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-    Event.findByIdAndRemove(req.body.id, (err, event) => {
+    Event.findByIdAndRemove(req.params.id, (err, event) => {
         if (err) {
             return res.status(500).send(err);
         }
@@ -81,43 +81,31 @@ exports.delete = (req, res) => {
 };
 
 exports.participate = (req, res) => {
-    Event.findById(req.body.id, (err, event) => {
+    Event.findById(req.params.id, (err, event) => {
         if (err) {
             res.send(err);
         }
-        if (event.participants.length < event.maxParticipants) {
-            event.participants.push(req.body.user);
+        if (event.participants.includes(req.body.user)) {
+            event.participants.pull(req.body.user);
+        } else {
+            if (event.participants.length < event.maxParticipants) {
+                event.participants.push(req.body.user);
+            } else {
+                res.json({ message: "Event is full" });
+            }
             event.save((err, event) => {
                 if (err) {
                     res.send(err);
                 }
                 res.json(event);
             });
-        } else {
-            res.json({ message: "Event is full" });
         }
-    });
-}
 
-
-exports.unparticipate = (req, res) => {
-    console.log(req.body);
-    Event.findById(req.body.id, (err, event) => {
-        if (err) {
-            res.send(err);
-        }
-        event.participants.pull(req.body.user);
-        event.save((err, event) => {
-            if (err) {
-                res.send(err);
-            }
-            res.json(event);
-        });
     });
 }
 
 exports.getAllParticipants = (req, res) => {
-    Event.findById(req.body.id, (err, event) => {
+    Event.findById(req.params.id, (err, event) => {
         if (err) {
             res.send(err);
         }
@@ -132,49 +120,28 @@ exports.getAllParticipants = (req, res) => {
     });
 }
 
-exports.getParticipantsAmount = (req, res) => {
-    Event.findById(req.body.id, (err, event) => {
-        if (err) {
-            res.send(err);
-        }
-        res.json(event.participants.length);
-    });
-}
-
 exports.preOrder = (req, res) => {
-    console.log(req.body);
-    Event.findById(req.body.id, (err, event) => {
+    Event.findById(req.params.id, (err, event) => {
         if (err) {
             res.send(err);
         }
-        event.preorder.push(req.body.user);
+        if (event.preOrder.includes(req.body.user)) {
+            event.preorder.pull(req.body.user);
+        } else {
+            event.preorder.push(req.body.user);
+        }
         event.save((err, event) => {
             if (err) {
                 res.send(err);
             }
             res.json(event);
         });
-    });
-}
 
-exports.unPreOrder = (req, res) => {
-    console.log(req.body);
-    Event.findById(req.body.id, (err, event) => {
-        if (err) {
-            res.send(err);
-        }
-        event.preorder.pull(req.body.user);
-        event.save((err, event) => {
-            if (err) {
-                res.send(err);
-            }
-            res.json(event);
-        });
     });
 }
 
 exports.getPreOrder = (req, res) => {
-    Event.findById(req.body.id, (err, event) => {
+    Event.findById(req.params.id, (err, event) => {
         if (err) {
             res.send(err);
         }
@@ -189,34 +156,20 @@ exports.getPreOrder = (req, res) => {
     });
 }
 
-exports.getPreOrderAmount = (req, res) => {
-    Event.findById(req.body.id, (err, event) => {
-        if (err) {
-            res.send(err);
-        }
-        res.json(event.preorder.length);
-    });
-}
-
 exports.getAllEventsWhereUserIsInvolved = (req, res) => {
-    var eventList = [];
-    console.log(req.body);
     Event.find({
         participants: req.body.user
     }, (err, events) => {
         if (err) {
             res.send(err);
         }
-        console.log(events);
         Event.find({
             preorder: req.body.user
         }, (err, event) => {
             if (err) {
                 res.send(err);
             }
-            console.log(event);
             Array.apply(events, event);
-            console.log(events);
             res.json(events);
         });
     });

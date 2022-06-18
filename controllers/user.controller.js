@@ -40,7 +40,7 @@ exports.updateUser = (req, res) => {
 }
 
 exports.setUserData = (req, res) => {
-    User.findOneAndUpdate({ username: req.body.user.username }, {
+    User.findOneAndUpdate({ username: req.params.id }, {
         $set: {
             firstName: req.body.user.firstName,
             lastName: req.body.user.lastName,
@@ -61,6 +61,15 @@ exports.setUserData = (req, res) => {
     });
 }
 
+exports.deleteUser = (req, res) => {
+    User.findOneAndRemove({ username: req.params.id }, (err, user) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(user);
+    });
+}
+
 exports.saveImage = (req, res) => {
     User.findOneAndUpdate({ username: req.body.username }, {
         $set: {
@@ -73,8 +82,9 @@ exports.saveImage = (req, res) => {
         res.json(user);
     });
 }
+
 exports.getUserData = (req, res) => {
-    User.findOne({ username: req.body.username }, (err, user) => {
+    User.findOne({ username: req.params.id }, (err, user) => {
         if (err) {
             res.send(err);
         }

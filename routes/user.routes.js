@@ -11,9 +11,10 @@ module.exports = function (app) {
         );
         next();
     });
-    app.post("/api/saveimage", [authJwt.verifyToken], controller.saveImage);
+    app.post("/api/image", [authJwt.verifyToken], controller.saveImage);
     app.get("/api/users", [authJwt.verifyToken], controller.getAllUsers);
-    app.post("/api/updateUser", [authJwt.verifyToken], controller.updateUser);
-    app.post("/api/setUserData", [authJwt.verifyToken], controller.setUserData);
-    app.post("/api/getUserData", [authJwt.verifyToken], controller.getUserData);
+    app.put("/api/user/role/:id", [authJwt.verifyToken], controller.updateUser);
+    app.put("/api/user/:id", [authJwt.verifyToken], controller.setUserData);
+    app.get("/api/user/:id", [authJwt.verifyToken], controller.getUserData);
+    app.delete("/api/user/:id", [authJwt.verifyToken], controller.deleteUser);
 };
