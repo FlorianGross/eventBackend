@@ -1,3 +1,5 @@
+// https://www.bezkoder.com/node-js-mongodb-auth-jwt/
+
 const jwt = require("jsonwebtoken");
 const secret = "key";
 const db = require("../models");

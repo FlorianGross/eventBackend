@@ -1,3 +1,5 @@
+// https://www.bezkoder.com/node-js-mongodb-auth-jwt/
+
 const db = require("../models");
 const ROLES = db.ROLES;
 const User = db.user;
