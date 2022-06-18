@@ -18,6 +18,6 @@ module.exports = function (app) {
         ],
         controller.signup
     );
-    app.get("/api/auth/admin", controller.getIsAdmin);
+    app.post("/api/auth/admin", controller.getIsAdmin);
     app.post("/api/auth/signin", controller.signin);
 };
