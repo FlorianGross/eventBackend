@@ -40,25 +40,31 @@ exports.updateUser = (req, res) => {
 }
 
 exports.setUserData = (req, res) => {
-    User.findOneAndUpdate({ username: req.params.id }, {
-        $set: {
-            firstName: req.body.user.firstName,
-            lastName: req.body.user.lastName,
-            email: req.body.user.email,
-            phoneNumber: req.body.user.phoneNumber,
-            city: req.body.user.city,
-            street: req.body.user.street,
-            streetNumber: req.body.user.streetNumber,
-            zip: req.body.user.zip,
-            country: req.body.user.country,
-            image: req.body.user.image,
-        }
-    }, { new: true }, (err, user) => {
+    User.findOneByUsername(req.params.id, (err, user) => {
         if (err) {
             res.send(err);
         }
-        res.json(user);
-    });
+        user.firstName = req.body.firstName;
+        user.lastName = req.body.lastName;
+        user.email = req.body.email;
+        user.firstName = req.body.user.firstName;
+        user.lastName = req.body.user.lastName;
+        user.email = req.body.user.email;
+        user.phoneNumber = req.body.user.phoneNumber;
+        user.city = req.body.user.city;
+        user.street = req.body.user.street;
+        user.streetNumber = req.body.user.streetNumber;
+        user.zip = req.body.user.zip;
+        user.country = req.body.user.country;
+        user.image = req.body.user.image;
+        user.save((err, user) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(user);
+        });
+    }
+    );
 }
 
 exports.deleteUser = (req, res) => {
