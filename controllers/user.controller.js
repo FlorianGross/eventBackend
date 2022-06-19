@@ -40,7 +40,7 @@ exports.updateUser = (req, res) => {
 }
 
 exports.setUserData = (req, res) => {
-    User.findOneByUsername(req.params.id, (err, user) => {
+    User.findById(req.params.id, (err, user) => {
         if (err) {
             res.send(err);
         }
