@@ -1,5 +1,3 @@
-// https://www.bezkoder.com/node-js-mongodb-auth-jwt/
-
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/user.controller");
 

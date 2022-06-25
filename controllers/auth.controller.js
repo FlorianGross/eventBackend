@@ -1,11 +1,10 @@
-// https://www.bezkoder.com/node-js-mongodb-auth-jwt/
-
 const secret = "key";
 const db = require("../models");
 const User = db.user;
 const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+// https://www.bezkoder.com/node-js-mongodb-auth-jwt/
 exports.signup = (req, res) => {
     const user = new User({
         username: req.body.username,
@@ -35,6 +34,7 @@ exports.signup = (req, res) => {
         }
     });
 };
+// https://www.bezkoder.com/node-js-mongodb-auth-jwt/
 exports.signin = (req, res) => {
     User.findOne({
         username: req.body.username
@@ -75,6 +75,8 @@ exports.signin = (req, res) => {
             });
         });
 };
+
+// own function
 exports.getIsAdmin = (req, res) => {
     console.log(req.body);
     User.findOne({
